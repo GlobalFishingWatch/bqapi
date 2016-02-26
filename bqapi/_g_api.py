@@ -5,6 +5,7 @@ Tools for interacting with the Google API and its responses.
 
 import functools
 import logging
+import sys
 import time
 
 import oauth2client
@@ -12,6 +13,12 @@ from googleapiclient import discovery
 
 
 logger = logging.getLogger('bqapi')
+
+
+if sys.version_info[0] == 2:
+    str_type = unicode
+else:
+    str_type = str
 
 
 _DEFAULT_API = None
@@ -27,7 +34,7 @@ def _default_api():
     return _DEFAULT_API
 
 
-def NULLABLE(val, cast):
+def nullable(val, cast):
 
     """
     Allow for null fields when casting to Python types.
@@ -40,14 +47,12 @@ def NULLABLE(val, cast):
 
 
 BQ_PY_TYPE_MAP = {
-    'STRING': functools.partial(NULLABLE, cast=six.text_type),
-    'INTEGER': functools.partial(NULLABLE, cast=int),
-    'FLOAT': functools.partial(NULLABLE, cast=float),
-    'BOOLEAN': functools.partial(NULLABLE, cast=bool),
-    'TIMESTAMP': functools.partial(NULLABLE, cast=float)
+    'STRING': functools.partial(nullable, cast=str_type),
+    'INTEGER': functools.partial(nullable, cast=int),
+    'FLOAT': functools.partial(nullable, cast=float),
+    'BOOLEAN': functools.partial(nullable, cast=bool),
+    'TIMESTAMP': functools.partial(nullable, cast=float)
 }
-
-
 
 
 def poll_job(request, retries=2, wait=1):

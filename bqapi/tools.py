@@ -1,4 +1,4 @@
-from bqapi._api import _default_api
+from bqapi._g_api import _default_api
 
 
 def list_projects():

@@ -123,7 +123,7 @@ class Connection(object):
         query : str
             SQL statement to execute.
         kwargs : **kwargs, optional
-            Additional arguments for `configuration` parameter of the API
+            Additional arguments for `configuration.query` parameter of the API
             call.  See URL above.
 
         Returns
@@ -140,14 +140,16 @@ class Connection(object):
                 'projectId': self.project,
                 'job_id': job_id
             },
-            'configuration': kwargs
+            'configuration': {
+                'query': kwargs,
+            }
         }
 
         logger.debug("Submitting query with job ID '%s': %s", job_id, query)
 
         resp = self._api.jobs().insert(
             projectId=self.project,
-            body=body).execute(RETRIES)
+            body=body).execute(num_retries=RETRIES)
 
         return Cursor(resp)
 
