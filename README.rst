@@ -39,6 +39,5 @@ Alternatively:
 
     sql = """SELECT * FROM [dataset.table] LIMIT 1000"""
 
-    with bqapi.query(sql, project='project-name') as records:
-        for row in records:
-            pass
+    for row in bqapi.query(sql, project='project-name'):
+        pass
