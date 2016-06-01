@@ -38,7 +38,7 @@ def _cb_format(ctx, param, value):
         }
     """
 
-    value = (v.split('=') for v in value)
+    value = (v.split('=', 1) for v in value)
     return {n: v for n, v in value}
 
 
