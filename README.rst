@@ -3,6 +3,8 @@ bqapi
 
 Experimental BigQuery interface for Python.
 
+See `docs <docs/>`_ for more information.
+
 
 Installing
 ----------

@@ -65,7 +65,8 @@ setup(
     include_package_data=True,
     install_requires=[
         'oauth2client',
-        'google-api-python-client'
+        'google-api-python-client',
+        'click'
     ],
     extras_require={
         'dev': [
@@ -74,6 +75,10 @@ setup(
             'coveralls',
         ],
     },
+    entry_points="""
+        [console_scripts]
+        bqapi=bqapi.cli:main
+    """,
     keywords='BigQuery Python DBAPI 2.0',
     license="Apache 2.0",
     long_description=readme,
